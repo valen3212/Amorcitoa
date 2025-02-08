@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>¿Quieres ser mi San Valentín?</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: Arial, sans-serif;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background: linear-gradient(135deg, #ffe6e6 0%, #ffb3b3 100%);
+            overflow: hidden;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 600px;
+            padding: 20px;
+        }
+
+        .card {
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 20px;
+            padding: 40px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            position: relative;
+        }
+
+        h1 {
+            color: #ff4d6d;
+            font-size: 2.5em;
+            margin-bottom: 30px;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        .message {
+            font-size: 1.2em;
+            color: #666;
+            margin-bottom: 40px;
+            line-height: 1.6;
+        }
+
+        .buttons {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            margin-top: 20px;
+        }
+
+        button {
+            padding: 15px 40px;
+            font-size: 1.2em;
+            border: none;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        #siBtn {
+            background: #ff4d6d;
+            color: white;
+        }
+
+        #siBtn:hover {
+            background: #ff3355;
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(255, 77, 109, 0.3);
+        }
+
+        #noBtn {
+            background: #f8f9fa;
+            color: #333;
+        }
+
+        #noBtn:hover {
+            background: #e9ecef;
+            transform: translateY(-3px);
+        }
+
+        .celebration {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, #ffe6e6 0%, #ffb3b3 100%);
+            z-index: 1000;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+            text-align: center;
+            padding: 20px;
+        }
+
+        .celebration h1 {
+            font-size: 3em;
+            color: #ff4d6d;
+            margin-bottom: 20px;
+            animation: bounce 1s infinite;
+        }
+
+        .celebration .message {
+            font-size: 1.5em;
+            color: #666;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .hearts {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: -1;
+        }
+
+        @keyframes float {
+            0% { transform: translateY(0px); }
+            50% { transform: translateY(-20px); }
+            100% { transform: translateY(0px); }
+        }
+
+        @keyframes bounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-20px); }
+        }
+
+        .elephant {
+            width: 100px;
+            height: 100px;
+            position: absolute;
+            animation: float 3s infinite ease-in-out;
+        }
+
+        .balloon {
+            width: 60px;
+            height: 80px;
+            position: absolute;
+            animation: float 4s infinite ease-in-out;
+        }
+
+        .heart {
+            position: absolute;
+            animation: float 2s infinite ease-in-out;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="card">
+            <h1>¿Quieres ser mi San Valentín?</h1>
+            <div class="message">
+                En este día tan especial, quisiera compartir contigo todos los momentos mágicos que el amor nos tiene preparados... ¿Me concederías el honor de ser mi San Valentín?
+            </div>
+            <div class="buttons">
+                <button id="siBtn">¡Sí!</button>
+                <button id="noBtn">No</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="celebration">
+        <div class="hearts">
+            <!-- Elementos decorativos generados por JavaScript -->
+        </div>
+        <h1>¡Has hecho mi día especial! 💖</h1>
+        <div class="message">
+            Gracias por aceptar ser mi San Valentín. ¡Juntos haremos de este día algo inolvidable!
+        </div>
+    </div>
+
+    <script>
+        const noBtn = document.getElementById('noBtn');
+        const siBtn = document.getElementById('siBtn');
+        const celebration = document.querySelector('.celebration');
+        const hearts = document.querySelector('.hearts');
+
+        // Función para crear elementos decorativos
+        function createDecorativeElement(type) {
+            const element = document.createElement('div');
+            element.className = type;
+            element.style.left = Math.random() * 100 + 'vw';
+            element.style.top = Math.random() * 100 + 'vh';
+            
+            if (type === 'elephant') {
+                element.innerHTML = '🐘';
+            } else if (type === 'balloon') {
+                element.innerHTML = '🎈';
+            } else if (type === 'heart') {
+                element.innerHTML = '❤️';
+            }
+            
+            return element;
+        }
+
+        // Hacer que el botón "No" escape del cursor
+        noBtn.addEventListener('mouseover', () => {
+            const maxX = window.innerWidth - noBtn.offsetWidth;
+            const maxY = window.innerHeight - noBtn.offsetHeight;
+            
+            const randomX = Math.random() * maxX;
+            const randomY = Math.random() * maxY;
+            
+            noBtn.style.position = 'fixed';
+            noBtn.style.left = randomX + 'px';
+            noBtn.style.top = randomY + 'px';
+        });
+
+        // Mostrar celebración al hacer clic en "Sí"
+        siBtn.addEventListener('click', () => {
+            celebration.style.display = 'flex';
+            
+            // Crear elementos decorativos
+            for (let i = 0; i < 10; i++) {
+                hearts.appendChild(createDecorativeElement('elephant'));
+                hearts.appendChild(createDecorativeElement('balloon'));
+                hearts.appendChild(createDecorativeElement('heart'));
+            }
+            
+            // Añadir más elementos cada segundo
+            setInterval(() => {
+                hearts.appendChild(createDecorativeElement(
+                    ['elephant', 'balloon', 'heart'][Math.floor(Math.random() * 3)]
+                ));
+            }, 1000);
+        });
+    </script>
+</body>
+</html>
